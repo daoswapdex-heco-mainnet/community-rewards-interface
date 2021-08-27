@@ -7,10 +7,10 @@
             <v-card outlined>
               <v-card-title>
                 <v-avatar size="24" class="mr-2">
-                  <img :src="require('@/assets/logo.png')" alt="DAO" />
+                  <img :src="require('@/assets/logo.png')" alt="DAT" />
                 </v-avatar>
                 <span class="title font-weight-light">
-                  DAO {{ $t("Available Amount") }}
+                  DAT {{ $t("Available Amount") }}
                 </span>
               </v-card-title>
               <v-card-text>
@@ -124,13 +124,13 @@
 import { validationMixin } from "vuelidate";
 import { required, decimal } from "vuelidate/lib/validators";
 import clip from "@/utils/clipboard";
-import { CommunityRewardsContractAddress } from "@/constants";
+import { CommunityRewardsDATContractAddress } from "@/constants";
 import { getContract, weiToEther, etherToWei } from "@/utils/web3";
 // 引入合约 ABI 文件
-import CommunityRewards from "@/constants/contractJson/CommunityRewards.json";
+import CommunityRewardsDAT from "@/constants/contractJson/CommunityRewardsDAT.json";
 
 export default {
-  name: "CommunityRewards",
+  name: "CommunityRewardsDAT",
   mixins: [validationMixin],
   validations: {
     claimAmount: { required, decimal }
@@ -223,8 +223,8 @@ export default {
       this.loading = true;
       try {
         const contract = getContract(
-          CommunityRewards,
-          CommunityRewardsContractAddress,
+          CommunityRewardsDAT,
+          CommunityRewardsDATContractAddress,
           this.web3
         );
         const rewardsBalance = await contract.methods
@@ -251,8 +251,8 @@ export default {
         const claimAmount = etherToWei(this.claimAmount, this.web3);
         // 执行合约
         getContract(
-          CommunityRewards,
-          CommunityRewardsContractAddress,
+          CommunityRewardsDAT,
+          CommunityRewardsDATContractAddress,
           this.web3
         )
           .methods.claim(claimAmount)
